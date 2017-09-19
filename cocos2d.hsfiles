@@ -1,7 +1,7 @@
-{{=<%% %%>=}}
+{{=<% %>=}}
 {-# START_FILE Classes/AppDelegate.cpp #-}
 #include "AppDelegate.h"
-#include "<%%name-as-module%%>_stub.h"
+#include "<%name-as-module%>_stub.h"
 #include "HsFFI.h"
 
 USING_NS_CC;
@@ -107,7 +107,7 @@ public:
 
 #endif // _APP_DELEGATE_H_
 
-{-# START_FILE Classes/<%%name-as-module%%>_stub.h #-}
+{-# START_FILE Classes/<%name-as-module%>_stub.h #-}
 #include "HsFFI.h"
 #ifdef __cplusplus
 extern "C" {
@@ -128,7 +128,7 @@ ENTRYPOINT ["/nix-build-ghc-android-runner", "--arg", "extraGhcPkgs", "import /c
 
 COPY . /app
 {-# START_FILE LICENSE #-}
-Copyright <%%author-name%%><%%^author-name%%>Author name here<%%/author-name%%> (c) <%%year%%><%%^year%%>2017<%%/year%%>
+Copyright <%author-name%><%^author-name%>Author name here<%/author-name%> (c) <%year%><%^year%>2017<%/year%>
 
 All rights reserved.
 
@@ -143,7 +143,7 @@ modification, are permitted provided that the following conditions are met:
       disclaimer in the documentation and/or other materials provided
       with the distribution.
 
-    * Neither the name of <%%author-name%%><%%^author-name%%>Author name here<%%/author-name%%> nor the names of other
+    * Neither the name of <%author-name%><%^author-name%>Author name here<%/author-name%> nor the names of other
       contributors may be used to endorse or promote products derived
       from this software without specific prior written permission.
 
@@ -178,7 +178,7 @@ configure:
 build:
 	cabal -v build && \
 	cp -rv dist /target/ && \
-	mv -v dist/build/<%%name%%>/<%%name%%> proj.android-studio/app/jni/lib<%%name-as-varid%%>.so && \
+	mv -v dist/build/<%name%>/<%name%> proj.android-studio/app/jni/lib<%name-as-varid%>.so && \
 	ndk-build -C proj.android-studio/app NDK_MODULE_PATH=$$(eval "echo $$(jq -r '.ndk_module_path | join(":")' proj.android-studio/build-cfg.json)") NDK_TOOLCHAIN_VERSION=4.9 NDK_DEBUG=1 && \
 	{ mkdir -p /target/proj.android-studio/app/libs/armeabi 2>/dev/null || true; } && \
 	cp -v proj.android-studio/app/libs/armeabi/*.so /target/proj.android-studio/app/libs/armeabi/
@@ -214,8 +214,8 @@ else ifeq ($(TARGET),mac)
 
 # assume on a mac
 build:
-	stack build --flag <%%name%%>:target-mac --flag cocos2d-hs:target-mac 2>&1 | awk '/: copy\/register$$/{ stop=1 } !stop{ print } END{ exit !stop }' && \
-	mv -v <%%name%%>.a proj.ios_mac/mac/libs/<%%name%%>.a
+	stack build --flag <%name%>:target-mac --flag cocos2d-hs:target-mac 2>&1 | awk '/^<%name%>-[0-9.]+: copy\/register$$/{ stop=1 } !stop{ print } END{ exit !stop }' && \
+	mv -v <%name%>.a proj.ios_mac/mac/libs/<%name%>.a
 clean:
 	stack clean
 
@@ -224,16 +224,16 @@ endif
 {-# START_FILE Setup.hs #-}
 import Distribution.Simple
 main = defaultMain
-{-# START_FILE <%%name%%>.ccs #-}
+{-# START_FILE <%name%>.ccs #-}
 <Solution>
-  <PropertyGroup Name="<%%name%%>" Version="2.3.3.0" Type="CocosStudio" />
+  <PropertyGroup Name="<%name%>" Version="2.3.3.0" Type="CocosStudio" />
   <SolutionFolder>
     <Group ctype="ResourceGroup">
       <RootFolder Name="." />
     </Group>
   </SolutionFolder>
 </Solution>
-{-# START_FILE <%%name%%>.cfg #-}
+{-# START_FILE <%name%>.cfg #-}
 <SolutionConfig Version="2.3.3.0">
   <PublishDirectory Value="Resources/res/" />
   <PackageDirectory Value="package/" />
@@ -262,21 +262,21 @@ main = defaultMain
     "height": 640
   }
 }
-{-# START_FILE hs-src/<%%name-as-module%%>.hs #-}
+{-# START_FILE hs-src/<%name-as-module%>.hs #-}
 {-# LANGUAGE ForeignFunctionInterface #-}
-module <%%name-as-module%%>
+module <%name-as-module%>
     ( runGame
     )
   where
 
-import qualified <%%name-as-module%%>.Main as M
+import qualified <%name-as-module%>.Main as M
 
 runGame :: IO ()
 runGame = M.main
 
 foreign export ccall runGame :: IO ()
-{-# START_FILE hs-src/<%%name-as-module%%>/Main.hs #-}
-module <%%name-as-module%%>.Main
+{-# START_FILE hs-src/<%name-as-module%>/Main.hs #-}
+module <%name-as-module%>.Main
   (
     main
   ) where
@@ -24654,15 +24654,15 @@ typedef union {
 #endif
 
 #endif /* STG_H */
-{-# START_FILE <%%name%%>.cabal #-}
-name:                <%%name%%>
+{-# START_FILE <%name%>.cabal #-}
+name:                <%name%>
 version:             0.1.0.0
 -- synopsis:            
 -- description:         
 license:             BSD3
 license-file:        LICENSE
-author:              <%%author-name%%><%%^author-name%%>Author name here<%%/author-name%%>
-maintainer:          <%%author-email%%><%%^author-email%%>example@example.com<%%/author-email%%>
+author:              <%author-name%><%^author-name%>Author name here<%/author-name%>
+maintainer:          <%author-email%><%^author-email%>example@example.com<%/author-email%>
 -- copyright:
 category:            Game
 build-type:          Simple
@@ -24678,12 +24678,12 @@ flag target-android
   default: False
   manual: True
 
-executable <%%name%%>
+executable <%name%>
   -- exposed-modules:     
   -- other-modules:       
   -- other-extensions:    
   hs-source-dirs:      hs-src
-  main-is:             <%%name-as-module%%>.hs
+  main-is:             <%name-as-module%>.hs
   build-depends:       base >=4.8 && <5
                      , colour
                      , reflex
@@ -24695,16 +24695,16 @@ executable <%%name%%>
   ghc-options:         -Wall -threaded -stubdir Classes -fno-warn-name-shadowing -no-hs-main
   if flag(target-mac)
     -- ### additional Mac options (to compile it as a single lib that exports the main haskell entry)
-    ghc-options: -o <%%name%%> -staticlib -pgmlibtool libtool-quiet
+    ghc-options: -o <%name%> -staticlib -pgmlibtool libtool-quiet
   else
     if flag(target-android)
       -- ### additional android options
       ghc-options: -fPIC
-      ld-options:  -shared -Wl,-soname,lib<%%name-as-varid%%>.so
+      ld-options:  -shared -Wl,-soname,lib<%name-as-varid%>.so
 {-# START_FILE proj.android-studio/app/AndroidManifest.xml #-}
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="org.cocos.<%%name-as-varid%%>"
+      package="org.cocos.<%name-as-varid%>"
       android:versionCode="1"
       android:versionName="1.0"
       android:installLocation="auto">
@@ -24747,7 +24747,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "org.cocos.<%%name-as-varid%%>"
+        applicationId "org.cocos.<%name-as-varid%>"
         minSdkVersion 9
         targetSdkVersion 9
 
@@ -24932,7 +24932,7 @@ include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := haskell_shared
-LOCAL_SRC_FILES := lib<%%name-as-varid%%>.so
+LOCAL_SRC_FILES := lib<%name-as-varid%>.so
 include $(PREBUILT_SHARED_LIBRARY)
 
 #================================
@@ -24986,7 +24986,7 @@ target=android-22
 {-# START_FILE proj.android-studio/app/res/values/strings.xml #-}
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name"><%%name%%></string>
+    <string name="app_name"><%name%></string>
 </resources>
 {-# START_FILE proj.android-studio/app/src/com/chukong/cocosplay/client/CocosPlayClient.java #-}
 /****************************************************************************
