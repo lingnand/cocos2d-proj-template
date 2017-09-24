@@ -31714,11 +31714,11 @@ packages:
   extra-dep: true
 - location:
     git: https://github.com/lynnard/cocos2d-hs
-    commit: 5946b09e87636039bcbd30b96b02df1d446b954e
+    commit: b7c4d8545f8e6223430a767af3b9e1eae31c6ef6
   extra-dep: true
 - location:
     git: https://github.com/lynnard/reflex-cocos2d
-    commit: a69f5c1e2afe66cc9365c0eb9334e525f7f8b421
+    commit: 79bae7127670441c1b8ab92f2c180ca258b8e9ed
   extra-dep: true
 
 extra-deps:
