@@ -31694,7 +31694,6 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-3.3-all.zip
 {-# START_FILE stack.yaml #-}
 resolver: lts-8.5
 
-# TODO: we should update the docker image to use more updated version of cocos2d-hs (now with master and android in the same branch)
 packages:
 - '.'
 - location:
@@ -31714,11 +31713,11 @@ packages:
   extra-dep: true
 - location:
     git: https://github.com/lynnard/cocos2d-hs
-    commit: b7c4d8545f8e6223430a767af3b9e1eae31c6ef6
+    commit: 1f0c2d31c73fecff333c0ee576fb06611f777872
   extra-dep: true
 - location:
     git: https://github.com/lynnard/reflex-cocos2d
-    commit: 79bae7127670441c1b8ab92f2c180ca258b8e9ed
+    commit: 07d822a9d4b6cb529437bff6c12be8a845e1fc88
   extra-dep: true
 
 extra-deps:
